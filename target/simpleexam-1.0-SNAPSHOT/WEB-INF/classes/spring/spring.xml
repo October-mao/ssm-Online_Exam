@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置注解扫描 -->
+    <context:component-scan base-package="cn.ganiner.service"/>
+
+    <!-- 加载数据库配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 数据库连接池 -->
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <!--数据库驱动 -->
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <!--连接数据库的url -->
+        <property name="url" value="${jdbc.url}" />
+        <!--连接数据库的用户名 -->
+        <property name="username" value="${jdbc.username}" />
+        <!--连接数据库的密码 -->
+        <property name="password" value="${jdbc.password}" />
+        <!--最大连接数 -->
+        <property name="maxTotal" value="${jdbc.maxTotal}" />
+        <!--最大空闲连接  -->
+        <property name="maxIdle" value="${jdbc.maxIdle}" />
+        <!--初始化连接数  -->
+        <property name="initialSize" value="${jdbc.initialSize}" />
+    </bean>
+
+    <!-- 配置SqlSessionFactory对象 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 扫描pojo包，使用别名配置(在mybatis中可以使用别名，即pojo的名称) -->
+        <property name="typeAliasesPackage" value="cn.ganiner.pojo"/>
+
+        <!-- 加载mybatis的配置文件 -->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+
+        <!-- 扫描Mapper层的配置文件 -->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+
+    </bean>
+
+
+    <!-- 使用mybatis的接口 mybatis的扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描mapper的配置文件 -->
+        <property name="basePackage" value="cn.ganiner.dao"/>
+
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置上传文件大小-->
+        <property name="maxInMemorySize" value="5000000"/>
+    </bean>
+
+</beans>
