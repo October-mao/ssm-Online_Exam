@@ -255,7 +255,7 @@ public class ExamController {
     }
 
     /**
-     * 考试
+     * 查询学生目前还未考试的考试
      * @param model
      * @param studentid
      * @return
@@ -276,6 +276,12 @@ public class ExamController {
     }
 
 
+    /**
+     * 学生考试页面
+     * @param examid
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "exampaper.do")
     public String ExamPaper(@RequestParam int examid, Model model){
 
@@ -288,6 +294,15 @@ public class ExamController {
         return "page/student/exam_paper";
     }
 
+    /**
+     * 保存学生考试试卷
+     * @param examid
+     * @param studentid
+     * @param answerchoice
+     * @param answerjudge
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "saveexam.do")
     public String SaveExam(@RequestParam int examid, @RequestParam long studentid,
                            @RequestParam String[] answerchoice, @RequestParam String[] answerjudge,
@@ -304,7 +319,6 @@ public class ExamController {
             if(paperChoices.get(i).getAnswer().equals(answerchoice[i])){
                 allscore += examInformation.getChoicescore();
             }
-
                 AllAnswer  allAnswer= new AllAnswer();
                 allAnswer.setStudentid(studentid);
                 allAnswer.setExamid(examid);
@@ -316,15 +330,13 @@ public class ExamController {
             if (paperJudges.get(i).getAnswer().equals(answerjudge[i]) ) {
                 allscore += examInformation.getJudgescore();
             }
-
                 AllAnswer allAnswer= new AllAnswer();
                 allAnswer.setStudentid(studentid);
                 allAnswer.setExamid(examid);
                 allAnswer.setStuanswer(answerjudge[i]);
                 allAnswers.add(allAnswer);
-
         }
-         examService.CreateAllAnswer(allAnswers);
+       examService.CreateAllAnswer(allAnswers);
        examHistory.setExamid(examid);
        examHistory.setStudentid(studentid);
        examHistory.setScore(allscore);
@@ -354,7 +366,13 @@ public class ExamController {
     }
 
 
-
+    /**
+     * 显示学生做完的试卷
+     * @param studentid
+     * @param examid
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "examdetial.do")
     public  String ExamHistory(@RequestParam int studentid, @RequestParam int examid, Model model){
         List<AllAnswer>allAnswers = examService.AllAnswer(studentid,examid);

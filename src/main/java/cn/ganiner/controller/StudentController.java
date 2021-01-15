@@ -55,7 +55,7 @@ public class StudentController {
     }
 
     /**
-     * 返回首页
+     * 模拟越过登录页面进入后台
      * @return
      */
     @RequestMapping(value = "tologin.do")

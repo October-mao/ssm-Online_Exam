@@ -138,7 +138,7 @@ public class UserController {
     public String create(Teacher teacher, Model model) {
         try {
             userService.create(teacher);
-            model.addAttribute("message", "保存客户信息系成功");
+            model.addAttribute("message", "保存老师信息系成功");
         } catch (Exception e) {
             e.printStackTrace();
         }

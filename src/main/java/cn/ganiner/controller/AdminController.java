@@ -21,7 +21,4 @@ public class AdminController {
     public String FindStuScore(){
         return "page/admin/student_score";
     }
-
-
-
 }

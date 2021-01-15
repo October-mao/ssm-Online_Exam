@@ -208,8 +208,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">考试日期</label>
                         <div style="text-align: left">
-                            <input type="date" value="2020-06-01" name="begindate"/>至
-                            <input type="date" value="2020-06-12" name="enddate"/>
+                            <input type="date" value="2021-01-13" name="begindate"/>至
+                            <input type="date" value="2021-01-23" name="enddate"/>
                         </div>
                     </div>
                     <div class="form-group">

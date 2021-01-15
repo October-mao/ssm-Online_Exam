@@ -225,13 +225,24 @@ public class BasicifnoController {
     }
 
 
-
+    /**
+     * 更新学期
+     * @param semester
+     * @return
+     */
     @RequestMapping(value = "upse.do")
     public String UpSe(Semester semester){
 
         basicInfoService.UpSemester(semester);
         return "redirect:allsemester.do";
     }
+
+    /**
+     * 更新专业
+     * @param major
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "upma.do")
     public String UpMa(Major major,Model model){
 
@@ -239,6 +250,13 @@ public class BasicifnoController {
         model.addAttribute("seid",major.getSeid());
         return "redirect:allmajor.do";
     }
+
+    /**
+     * 更新班级
+     * @param blass
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "upcl.do")
     public String UpMa(Blass blass,Model model){
         basicInfoService.UpBlass(blass);
@@ -247,8 +265,11 @@ public class BasicifnoController {
     }
 
 
-
-
+    /**
+     * 查询所有系
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "alldepart.do")
     public  String AllDepart(Model model){
         List<Depart>departs = basicInfoService.AllDepart();
@@ -261,16 +282,34 @@ public class BasicifnoController {
         List<Depart>departs = basicInfoService.AllDepart();
         return departs;
     }
+
+    /**
+     * 添加系
+     * @param depart
+     * @return
+     */
     @RequestMapping(value = "adddepart.do")
     public String AddDepart(Depart depart){
         basicInfoService.InsertDepart(depart);
         return "redirect:alldepart.do";
     }
+
+    /**
+     * 删除系
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "deletedepart.do")
     public String DeleteDepart(@RequestParam int id){
         basicInfoService.deleteDepart(id);
         return "redirect:alldepart.do";
     }
+
+    /**
+     * 更新
+     * @param depart
+     * @return
+     */
     @RequestMapping(value = "updepart.do")
     public String UpDepart(Depart depart){
         basicInfoService.updateDepart(depart);

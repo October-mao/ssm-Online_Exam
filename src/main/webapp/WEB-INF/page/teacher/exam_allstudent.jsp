@@ -61,7 +61,27 @@
     <script src="<%=basePath%>/vendor/js/123.js"></script>
     <script src="<%=basePath%>/vendor/js/456.js"></script>
     <![endif]-->
+    <script language="javascript">
+        function printdiv(printpage)
+        {
+            var newstr = printpage.innerHTML;
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML =newstr;
+            window.print();
+            document.body.innerHTML=oldstr;
+            return false;
+        }
+        window.onload=function()
+        {
+            var bt=document.getElementById("bt");
+            var div_print=document.getElementById("page-wrapper");
 
+            bt.onclick=function()
+            {
+                printdiv(div_print);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -154,6 +174,7 @@
                 <%--<th colspan="3" style="text-align: center;font-size: 20px ">${cname}学生信息设置</th>--%>
             <%--</tr>--%>
             <%--</thead>--%>
+                <input name="print" type="button" id="bt" value="点击导出" />
 
             <tr>
                 <td>学号</td>
@@ -165,9 +186,8 @@
                 %>
             <c:forEach items="${student}" var="st">
                 <tr>
-                    <td style="margin-top: 50%">
-                    <td style="margin-top: 50%"  ><a href="<%=basePath%>/exam/examdetial.do?studentid=2&examid=<%=examid%>">${st.num}</a></td>
-                            </td>
+
+                    <td style="margin-top: 50%"  >${st.num}</td>
                     <td>${st.username}</td>
                     <td>${st.id}</td>
                 </tr>

@@ -291,7 +291,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">章节名</label>
                         <div class="col-sm-10">
-                            <input type="text" name="pointname" class="form-control" id="pointname" placeholder="pointname">
+                            <input type="text" name="pointname" class="form-control" id="pointname" placeholder="请输入章节名字">
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -341,7 +341,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="my">添加小节</h4>
             </div>
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="<%=basePath%>/user/addpoint2.do" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">章节</label>
@@ -349,8 +349,6 @@
                             <select class="form-control" id="addp2_select" name = "aid"></select>
                             <!--<option value="1"></option>-->
                         </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">小节</label>
                         <div class="col-sm-10">
                             <input type="text" name="pname" class="form-control" id="pname" placeholder="">
@@ -358,10 +356,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id = "addp2but">提交</button>
+                    <button type="submit" class="btn btn-primary" id = "addp2but">提交</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -379,9 +376,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">章节</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-10">
                             <select class="form-control" id="chapter" name = "chapter">
                             </select>
+                        </div>
+                        <label class="col-sm-2 control-label">小节</label>
+                        <div class="col-sm-10">
                             <select class="form-control" id="chaptertwo" name = "chaptertwo"></select>
                         </div>
                     </div>
@@ -509,17 +509,7 @@
             }
         });
     }
-    $("#addp2but").click(function(){
-       // alert($("#addp2 form").serialize())//序列化form上的数据
-        $.ajax({
-            url:"<%=basePath%>/user/addpoint2.do",
-            type:"POST",
-            data:$("#addp2 form").serialize(),
-            success:function() {
-                $("#addp2").modal('hide');
-            }
-        });
-    });
+
     //清空表单样式及内容
     function reset_form(ele){
         $(ele)[0].reset();
